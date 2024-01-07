@@ -14,10 +14,12 @@ import { ReusableFormComponent } from './reusable-form/reusable-form.component';
 export class AppComponent {
   formFields = [
     'name',
-    'age',
+    { name: 'age', type: 'number' },
+    { name: 'password', type: 'password', hint: 'Enter a password' },
     {
       name: 'bio',
       displayName: 'Write a short biography',
+      hint: 'i.e I like to code',
     },
     {
       name: 'favoriteColor',

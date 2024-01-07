@@ -2,6 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FieldConfig } from '../types';
 
+const defaultFieldConfigValues = {
+  type: 'text',
+  hint: '',
+};
+
 @Component({
   selector: 'app-reusable-form',
   standalone: true,
@@ -17,9 +22,17 @@ export class ReusableFormComponent implements OnInit {
   set fields(newFields: (FieldConfig | string)[]) {
     this.fieldConfigs = newFields.map((field) => {
       if (typeof field === 'string') {
-        return { name: field, displayName: field };
+        return {
+          ...defaultFieldConfigValues,
+          name: field,
+          displayName: field,
+        };
       } else {
-        return field;
+        return {
+          ...defaultFieldConfigValues,
+          displayName: field.name,
+          ...field,
+        };
       }
     });
 

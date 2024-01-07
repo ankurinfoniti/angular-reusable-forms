@@ -1,8 +1,13 @@
 <div>
   @for (field of fieldConfigs; track field) {
   <label for="{{ field.name }}">
-    {{ field.displayName }}
-    <input [id]="field.name" [(ngModel)]="fieldValues[field.name]" />
+    {{ capitalize(field.displayName!) }}
+    <input
+      [id]="field.name"
+      [type]="field.type"
+      [placeholder]="field.hint"
+      [(ngModel)]="fieldValues[field.name]"
+    />
   </label>
   }
   <button (click)="submitForm()">Submit</button>

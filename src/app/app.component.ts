@@ -11,4 +11,17 @@ import { ReusableFormComponent } from './reusable-form/reusable-form.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent {}
+export class AppComponent {
+  formFields = [
+    'name',
+    'age',
+    {
+      name: 'bio',
+      displayName: 'Write a short biography',
+    },
+    {
+      name: 'favoriteColor',
+      displayName: 'Favorite Color',
+    },
+  ];
+}

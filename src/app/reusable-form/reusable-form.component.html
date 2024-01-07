@@ -1,0 +1,9 @@
+<div>
+  @for (field of fields; track field) {
+  <label for="{{ field }}">
+    {{ field }}
+    <input [id]="field" [(ngModel)]="fieldValues[field]" />
+  </label>
+  }
+  <button (click)="submitForm()">Submit</button>
+</div>

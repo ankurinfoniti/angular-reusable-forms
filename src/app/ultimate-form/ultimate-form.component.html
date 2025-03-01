@@ -1,0 +1,6 @@
+@for (field of fields; track $index) {
+  <label>{{ field }}</label>
+  <input [(ngModel)]="fieldValues[field]" />
+}
+
+<button (click)="submitForm()">Submit</button>

@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+import { FieldConfig } from '../models/types';
+
 @Component({
   selector: 'app-ultimate-form',
   imports: [FormsModule],
@@ -8,14 +10,28 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './ultimate-form.component.css',
 })
 export class UltimateFormComponent implements OnInit {
-  @Input({ required: true }) fields!: string[];
-
+  fieldConfigs: FieldConfig[] = [];
   fieldValues: any = {};
 
-  ngOnInit() {
-    for (let field of this.fields) {
-      this.fieldValues[field] = '';
+  @Input({ required: true })
+  set fields(newFields: (FieldConfig | string)[]) {
+    this.fieldConfigs = newFields.map((field) => {
+      if (typeof field === 'string') {
+        return { name: field, displayName: field };
+      } else {
+        return field;
+      }
+    });
+
+    for (let field of this.fieldConfigs) {
+      this.fieldValues[field.name] = this.fieldValues[field.name] || '';
     }
+  }
+
+  ngOnInit() {}
+
+  capitalize(str: string): string {
+    return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
   submitForm() {

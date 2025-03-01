@@ -1,11 +1,23 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { UltimateFormComponent } from './ultimate-form/ultimate-form.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, UltimateFormComponent],
+  imports: [UltimateFormComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent {}
+export class AppComponent {
+  formFields = [
+    'name',
+    'age',
+    {
+      name: 'bio',
+      displayName: 'Write a short biography',
+    },
+    {
+      name: 'favoriteColor',
+      displayName: 'Favorite Color',
+    },
+  ];
+}

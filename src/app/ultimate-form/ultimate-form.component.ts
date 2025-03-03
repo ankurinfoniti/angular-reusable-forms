@@ -1,11 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { FieldConfig } from '../models/types';
+import { FieldConfig, Validator } from '../models/types';
 
 const defaultFieldConfigValues = {
   type: 'text',
   hint: '',
+  validators: <Validator[]>[],
 };
 
 @Component({
@@ -15,7 +16,7 @@ const defaultFieldConfigValues = {
   styleUrl: './ultimate-form.component.css',
 })
 export class UltimateFormComponent implements OnInit {
-  incorrectFields: string[] = [];
+  validationErrors: string[] = [];
   fieldConfigs: FieldConfig[] = [];
   fieldValues: any = {};
 
@@ -45,20 +46,22 @@ export class UltimateFormComponent implements OnInit {
   }
 
   submitForm() {
-    this.incorrectFields = [];
+    this.validationErrors = [];
 
     for (let field of this.fieldConfigs) {
-      for (let validate of field.validationFns || []) {
-        const isValid = validate(this.fieldValues[field.name]);
+      for (let validator of field.validators!) {
+        const isValid = validator.checkFn(this.fieldValues[field.name]);
 
         if (!isValid) {
-          this.incorrectFields.push(field.displayName!);
+          this.validationErrors.push(
+            `${field.displayName}: ${validator.errorMessage}`,
+          );
           break;
         }
       }
     }
 
-    if (this.incorrectFields.length > 0) {
+    if (this.validationErrors.length > 0) {
       return;
     }
 

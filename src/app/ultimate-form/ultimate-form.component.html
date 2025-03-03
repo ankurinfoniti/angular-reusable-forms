@@ -1,5 +1,5 @@
-@for (fieldName of incorrectFields; track $index) {
-  <p>There is an error in field "{{ fieldName }}".</p>
+@for (error of validationErrors; track $index) {
+  <p>{{ error }}.</p>
 }
 
 @for (field of fieldConfigs; track $index) {

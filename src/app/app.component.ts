@@ -15,8 +15,27 @@ const isTenCharsOrLonger = (str: string) => str.length >= 10;
 })
 export class AppComponent {
   formFields = [
-    { name: 'name', validationFns: [isNotEmpty, isTwoCharsOrLonger] },
-    { name: 'age', type: 'number', validationFns: [isNotEmpty, is21OrOver] },
+    {
+      name: 'name',
+      validators: [
+        { checkFn: isNotEmpty, errorMessage: 'Please enter a value' },
+        {
+          checkFn: isTwoCharsOrLonger,
+          errorMessage: 'Must be 2 characters or longer',
+        },
+      ],
+    },
+    {
+      name: 'age',
+      type: 'number',
+      validators: [
+        { checkFn: isNotEmpty, errorMessage: 'Please enter a value' },
+        {
+          checkFn: is21OrOver,
+          errorMessage: 'Age must be 21 or over',
+        },
+      ],
+    },
     {
       name: 'password',
       type: 'password',

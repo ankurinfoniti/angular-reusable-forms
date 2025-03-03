@@ -44,6 +44,13 @@ export class UltimateFormComponent implements OnInit {
   }
 
   submitForm() {
+    for (let field of this.fieldConfigs) {
+      for (let validate of field.validationFns || []) {
+        const isValid = validate(this.fieldValues[field.name]);
+
+        if (!isValid) return;
+      }
+    }
     console.log(this.fieldValues);
   }
 }

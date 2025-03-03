@@ -3,6 +3,11 @@ import { FormsModule } from '@angular/forms';
 
 import { FieldConfig } from '../models/types';
 
+const defaultFieldConfigValues = {
+  type: 'text',
+  hint: '',
+};
+
 @Component({
   selector: 'app-ultimate-form',
   imports: [FormsModule],
@@ -17,9 +22,13 @@ export class UltimateFormComponent implements OnInit {
   set fields(newFields: (FieldConfig | string)[]) {
     this.fieldConfigs = newFields.map((field) => {
       if (typeof field === 'string') {
-        return { name: field, displayName: field };
+        return { ...defaultFieldConfigValues, name: field, displayName: field };
       } else {
-        return field;
+        return {
+          ...defaultFieldConfigValues,
+          displayName: field.name,
+          ...field,
+        };
       }
     });
 

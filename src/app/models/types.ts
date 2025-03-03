@@ -1,4 +1,6 @@
 export interface FieldConfig {
   name: string;
-  displayName: string;
+  displayName?: string;
+  type?: string;
+  hint?: string;
 }

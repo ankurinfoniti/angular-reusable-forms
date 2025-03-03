@@ -10,10 +10,16 @@ import { UltimateFormComponent } from './ultimate-form/ultimate-form.component';
 export class AppComponent {
   formFields = [
     'name',
-    'age',
+    { name: 'age', type: 'number' },
+    {
+      name: 'password',
+      type: 'password',
+      hint: 'Must have at least 8 characters',
+    },
     {
       name: 'bio',
       displayName: 'Write a short biography',
+      hint: 'i.e I like food',
     },
     {
       name: 'favoriteColor',

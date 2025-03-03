@@ -1,6 +1,10 @@
 @for (field of fieldConfigs; track $index) {
-  <label>{{ capitalize(field.displayName) }}: </label>
-  <input [(ngModel)]="fieldValues[field.name]" />
+  <label>{{ capitalize(field.displayName!) }}: </label>
+  <input
+    [(ngModel)]="fieldValues[field.name]"
+    [type]="field.type"
+    [placeholder]="field.hint"
+  />
 }
 
 <button (click)="submitForm()">Submit</button>

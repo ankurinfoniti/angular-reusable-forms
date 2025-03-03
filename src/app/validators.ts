@@ -6,6 +6,10 @@ const createMinLengthCheck = (minLength: number) => (str: string) =>
 const createMinValueCheck = (minValue: number) => (value: number) =>
   value >= minValue;
 
+const emailRegex =
+  /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+const isEmail = (str: string) => emailRegex.test(str);
+
 export const isNotEmptyValidator: Validator = {
   checkFn: isNotEmpty,
   errorMessage: 'Field cannot be empty',
@@ -20,3 +24,8 @@ export const createMinValueValidator = (minValue: number) => ({
   checkFn: createMinValueCheck(minValue),
   errorMessage: `Field must be ${minValue} or over`,
 });
+
+export const isEmailValidator = {
+  checkFn: isEmail,
+  errorMessage: 'Field must be a valid email address',
+};

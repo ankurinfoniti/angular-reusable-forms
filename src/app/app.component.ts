@@ -4,6 +4,7 @@ import { UltimateFormComponent } from './ultimate-form/ultimate-form.component';
 import {
   createMinLengthValidator,
   createMinValueValidator,
+  isEmailValidator,
   isNotEmptyValidator,
 } from './validators';
 
@@ -18,6 +19,10 @@ export class AppComponent {
     {
       name: 'name',
       validators: [isNotEmptyValidator, createMinLengthValidator(2)],
+    },
+    {
+      name: 'email',
+      validators: [isNotEmptyValidator, isEmailValidator],
     },
     {
       name: 'age',

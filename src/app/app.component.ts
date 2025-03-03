@@ -4,8 +4,11 @@ import { UltimateFormComponent } from './ultimate-form/ultimate-form.component';
 import {
   createMinLengthValidator,
   createMinValueValidator,
-  isEmailValidator,
+  createRegexValidator,
+  dateRegex,
+  emailRegex,
   isNotEmptyValidator,
+  timeRegex,
 } from './validators';
 
 @Component({
@@ -22,12 +25,32 @@ export class AppComponent {
     },
     {
       name: 'email',
-      validators: [isNotEmptyValidator, isEmailValidator],
+      validators: [
+        isNotEmptyValidator,
+        createRegexValidator(emailRegex, 'email address'),
+      ],
     },
     {
       name: 'age',
       type: 'number',
       validators: [isNotEmptyValidator, createMinValueValidator(21)],
+    },
+    {
+      name: 'birthday',
+      hint: '01/01/1990',
+      validators: [
+        isNotEmptyValidator,
+        createRegexValidator(dateRegex, 'date in the format MM/DD/YYYY'),
+      ],
+    },
+    {
+      name: 'favoriteTimeOfDay',
+      displayName: 'Favorite Time Of Day',
+      hint: '12:34',
+      validators: [
+        isNotEmptyValidator,
+        createRegexValidator(timeRegex, '24-hour time in the format HH:MM'),
+      ],
     },
     {
       name: 'password',
@@ -45,7 +68,7 @@ export class AppComponent {
     },
   ];
 
-  handleFormSubmission({ name, age, password, bio, favoriteColor }: any) {
-    console.log({ name, age, password, bio, favoriteColor });
+  handleFormSubmission(formData: any) {
+    console.log(formData);
   }
 }

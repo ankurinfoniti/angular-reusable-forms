@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
 import { UltimateFormComponent } from './ultimate-form/ultimate-form.component';
-
-const isNotEmpty = (str: string) => str.length !== 0;
-const isTwoCharsOrLonger = (str: string) => str.length >= 2;
-const is21OrOver = (value: number) => value >= 21;
-const isTenCharsOrLonger = (str: string) => str.length >= 10;
+import {
+  createMinLengthValidator,
+  createMinValueValidator,
+  isNotEmptyValidator,
+} from './validators';
 
 @Component({
   selector: 'app-root',
@@ -17,24 +17,12 @@ export class AppComponent {
   formFields = [
     {
       name: 'name',
-      validators: [
-        { checkFn: isNotEmpty, errorMessage: 'Please enter a value' },
-        {
-          checkFn: isTwoCharsOrLonger,
-          errorMessage: 'Must be 2 characters or longer',
-        },
-      ],
+      validators: [isNotEmptyValidator, createMinLengthValidator(2)],
     },
     {
       name: 'age',
       type: 'number',
-      validators: [
-        { checkFn: isNotEmpty, errorMessage: 'Please enter a value' },
-        {
-          checkFn: is21OrOver,
-          errorMessage: 'Age must be 21 or over',
-        },
-      ],
+      validators: [isNotEmptyValidator, createMinValueValidator(21)],
     },
     {
       name: 'password',

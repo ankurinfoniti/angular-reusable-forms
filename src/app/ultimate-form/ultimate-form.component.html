@@ -1,3 +1,7 @@
+@for (fieldName of incorrectFields; track $index) {
+  <p>There is an error in field "{{ fieldName }}".</p>
+}
+
 @for (field of fieldConfigs; track $index) {
   <label>{{ capitalize(field.displayName!) }}: </label>
   <input

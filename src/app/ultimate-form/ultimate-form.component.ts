@@ -15,6 +15,7 @@ const defaultFieldConfigValues = {
   styleUrl: './ultimate-form.component.css',
 })
 export class UltimateFormComponent implements OnInit {
+  incorrectFields: string[] = [];
   fieldConfigs: FieldConfig[] = [];
   fieldValues: any = {};
 
@@ -44,13 +45,23 @@ export class UltimateFormComponent implements OnInit {
   }
 
   submitForm() {
+    this.incorrectFields = [];
+
     for (let field of this.fieldConfigs) {
       for (let validate of field.validationFns || []) {
         const isValid = validate(this.fieldValues[field.name]);
 
-        if (!isValid) return;
+        if (!isValid) {
+          this.incorrectFields.push(field.displayName!);
+          break;
+        }
       }
     }
+
+    if (this.incorrectFields.length > 0) {
+      return;
+    }
+
     console.log(this.fieldValues);
   }
 }

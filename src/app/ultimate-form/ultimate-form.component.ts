@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { FieldConfig, Validator } from '../models/types';
@@ -39,6 +39,8 @@ export class UltimateFormComponent implements OnInit {
     }
   }
 
+  @Output() submit = new EventEmitter<any>();
+
   ngOnInit() {}
 
   capitalize(str: string): string {
@@ -65,6 +67,6 @@ export class UltimateFormComponent implements OnInit {
       return;
     }
 
-    console.log(this.fieldValues);
+    this.submit.emit(this.fieldValues);
   }
 }

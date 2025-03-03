@@ -51,4 +51,8 @@ export class AppComponent {
       displayName: 'Favorite Color',
     },
   ];
+
+  handleFormSubmission({ name, age, password, bio, favoriteColor }: any) {
+    console.log({ name, age, password, bio, favoriteColor });
+  }
 }
